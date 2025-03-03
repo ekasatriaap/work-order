@@ -1,0 +1,32 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: work-order-app
+        # env_file: .env
+        ports:
+            - "8080:8000"
+        volumes:
+            - ./:/app
+        command: bash -c "php artisan octane:frankenphp"
+        networks:
+            - work-order-network
+
+    mariadb:
+        image: mariadb
+        container_name: mariadb
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - mariadb-data:/var/lib/mysql
+        networks:
+            - work-order-network
+
+volumes:
+    mariadb-data:
+
+networks:
+    work-order-network:
