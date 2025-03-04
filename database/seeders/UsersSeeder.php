@@ -18,7 +18,7 @@ class UsersSeeder extends Seeder
                 'name' => 'Root',
                 "email" => "ekasatria.ariaputra@gmail.com",
                 "username" => "root",
-                "password" => bcrypt("el.psy.congroo"),
+                "password" => bcrypt("root"),
                 "is_root" => true
             ],
         ])->each(function ($user) {
