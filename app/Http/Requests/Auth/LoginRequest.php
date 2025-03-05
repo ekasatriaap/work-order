@@ -48,14 +48,7 @@ class LoginRequest extends FormRequest
                 'username' => trans('auth.failed'),
             ]);
         }
-        $username = $this->input('username');
-        $password = $this->input('password');
-        Auth::guard('user')->attempt(['username' => $username, 'password' => $password]);
-        $user = Auth::guard('user')->user();
-        dd($user);
-        $message = 'Selamat datang ' .  $user->name . '! ';
-        session()->flash('is_first_login', $message);
-        activity('auth')->causedBy(Auth::guard('user')->user())->event('login')->log('Login App');
+        activity('auth')->causedBy(Auth::user())->event('login')->log('Login App');
         RateLimiter::clear($this->throttleKey());
     }
 

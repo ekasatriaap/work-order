@@ -58,3 +58,14 @@ if (!function_exists('tanggal')) {
     return Carbon\Carbon::parse($date)->translatedFormat($format);
   }
 }
+
+if (!function_exists('defaultDrawCallback')) {
+  function defaultDrawCallback($jenis = null, $table_id = DATATABLE_ID)
+  {
+    return <<<JS
+                function(){
+                    $(`#${table_id} [checkboxheader]`).prop('checked', false)
+                }
+            JS;
+  }
+}

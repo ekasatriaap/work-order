@@ -22,12 +22,11 @@ class BaseController extends Controller
 
     public function __construct()
     {
-        // dd(Auth::guard('user')->user());
         // Middleware only applied to these methods
         $array_permission = $this->getPermission();
-        // foreach (array_keys($array_permission) as $p) {
-        //     $this->middleware("can:{$this->permission_name}.{$p}")->only(explode(",", $array_permission[$p]));
-        // }
+        foreach (array_keys($array_permission) as $p) {
+            $this->middleware("can:{$this->permission_name}.{$p}")->only(explode(",", $array_permission[$p]));
+        }
 
         // sharing
         view()->share('permission_name', $this->permission_name);

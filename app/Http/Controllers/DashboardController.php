@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DashboardController extends BaseController
+class DashboardController extends Controller
 {
     protected $view = "app.dashboard";
-    protected $permission_name = "dashboard";
 
     public function index()
     {
