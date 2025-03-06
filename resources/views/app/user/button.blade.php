@@ -8,7 +8,7 @@
             'attr' =>
                 'onclick="actionModalData(this)" data-url="' .
                 route($permission_name . '.edit', $id) .
-                '" data-title="Edit Data Role"',
+                '" data-title="Edit Data User"',
             'title' => 'Edit',
             'color' => 'warning',
         ];
@@ -22,17 +22,6 @@
             'attr' => "onclick=\"deleteDataDataTable('" . route($permission_name . '.destroy', $id) . "') \"",
             'title' => 'Delete',
             'color' => 'danger',
-        ];
-    @endphp
-@endcan
-
-@can("{$permission_name}.detail")
-    @php
-        $listUrl[] = [
-            'label' => '<i class="fas fa-info-circle"></i>',
-            'url' => route("{$permission_name}.show", $id),
-            'title' => 'Detail',
-            'color' => 'primary',
         ];
     @endphp
 @endcan

@@ -2,13 +2,13 @@
 
 namespace App\DataTables;
 
-use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 
-class RoleDataTable extends BaseDataTable
+class UserDataTable extends BaseDataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class RoleDataTable extends BaseDataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        $primaryKey = (new Role())->getKeyName();
+        $primaryKey = (new User())->getKeyName();
         return (new EloquentDataTable($query))
             ->addColumn('aksi', function ($row) use ($primaryKey) {
                 $data['id'] = encode($row->$primaryKey);
@@ -36,11 +36,17 @@ class RoleDataTable extends BaseDataTable
      * @param \App\Models\BebanStudi $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Role $model): QueryBuilder
+    public function query(User $model): QueryBuilder
     {
         $param = $this->getParam();
-        return $model->when(!userIsRoot(), fn($query) => $query->where("level", ">", $param['level']))
-            ->orderBy('level');
+        $id = $param['id'];
+        $level = $param['level'];
+        return $model->with([
+            "role" => function ($query) use ($level) {
+                $query->select("id", "name")->when(!userIsRoot(), fn($query) => $query->where("level", ">", $level));
+            }
+        ])->where("id", "!=", $id)
+            ->where("is_root", FALSE);
     }
 
     /**
@@ -69,8 +75,9 @@ class RoleDataTable extends BaseDataTable
         return [
             Column::make('created_at')->hidden()->searchable(false),
             Column::make('DT_RowIndex')->name('id')->title('No')->searchable(false)->orderable(false)->width(50)->addClass('text-center'),
-            Column::make('name')->title('Role'),
-            Column::make('level')->addClass('text-center')->width(75),
+            Column::make('name')->title('Nama'),
+            Column::make("username"),
+            Column::make('role.name')->title('Role'),
             Column::computed('aksi')->title('')->exportable(false)->printable(false)->width(100)->addClass('text-end'),
 
         ];
@@ -83,6 +90,6 @@ class RoleDataTable extends BaseDataTable
      */
     protected function filename(): string
     {
-        return 'Role_' . date('YmdHis');
+        return 'User_' . date('YmdHis');
     }
 }

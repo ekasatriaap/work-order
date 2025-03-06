@@ -12,19 +12,15 @@ Route::middleware('auth')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index')->name('dashboard');
     });
-    Route::controller(UserController::class)->group(function () {
-        Route::get("/users", "index")->name("users.index");
-    });
 
-    // Route::resource('roles', RoleController::class)->names([
-    //     'index' => 'role.index',
-    //     'create' => 'role.create',
-    //     'store' => 'role.store',
-    //     'edit' => 'role.edit',
-    //     'update' => 'role.update',
-    //     "show" => "role.show",
-    //     'destroy' => 'role.destroy',
-    // ]);
+    Route::resource('user', UserController::class)->names([
+        'index' => 'user.index',
+        'create' => 'user.create',
+        'store' => 'user.store',
+        'edit' => 'user.edit',
+        'update' => 'user.update',
+        'destroy' => 'user.destroy',
+    ])->except(["show"]);
 
     Route::prefix("role")->controller(RoleController::class)->group(function () {
         Route::get("/", "index")->name("role.index");

@@ -7,6 +7,7 @@ use App\Http\Requests\RoleRequest;
 use App\Models\Menu;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends BaseController
@@ -167,6 +168,8 @@ class RoleController extends BaseController
                     'menu' => json_encode($this->_buildMenu($role_permissions)),
                 ]
             );
+
+            Cache::forget("menu_{$role->id}");
 
             $this->activityCreate("Manambah dan atau merubah hak akses " . $role->name, $menu);
             DB::commit();

@@ -11,8 +11,8 @@ if (!function_exists('getMenu')) {
         "child" => [
           [
             "name" => "Users",
-            "url" => "users.index",
-            "permissions" => ["users.lihat", "users.tambah", "users.ubah", "users.hapus", "users.detail"]
+            "url" => "user.index",
+            "permissions" => ["user.lihat", "user.tambah", "user.ubah", "user.hapus", "user.detail"]
           ],
           [
             "name" => "Roles",

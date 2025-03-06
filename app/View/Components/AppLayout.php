@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Menu;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -25,7 +26,12 @@ class AppLayout extends Component
                 $menus = getMenu();
                 break;
             default:
-                $menus = json_decode(Menu::where('id_role', $auth->id_role)->first()?->toArray()['menu'] ?? "[]", true);
+                $key = "menu_{$auth->id_role}";
+                $menus = Cache::remember(
+                    $key,
+                    now()->addHour(24),
+                    fn() => json_decode(Menu::where('id_role', $auth->id_role)->first()?->toArray()['menu'] ?? "[]", true)
+                );
                 break;
         }
         $app = [
