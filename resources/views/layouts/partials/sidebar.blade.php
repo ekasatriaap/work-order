@@ -1,3 +1,6 @@
+@php
+    $current = \Request::route()->getName();
+@endphp
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
@@ -13,22 +16,22 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            @foreach (getMenu() as $menu)
+            @foreach ($menus as $menu)
                 @if (!isset($menu['child']))
-                    <li>
+                    <li class="{{ $current == $menu['url'] ? 'active' : '' }}">
                         <a class="nav-link" href="{{ Route::has($menu['url']) ? route($menu['url']) : '#' }}">
                             <i class="{{ $menu['icon'] }}"></i>
                             <span>{{ $menu['name'] }}</span>
                         </a>
                     </li>
                 @else
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{ in_array($current, getAllMenuUrl($menu, [])) ? 'active' : '' }}">
                         <a href="#" class="nav-link has-dropdown">
                             <i class="{{ $menu['icon'] }}"></i><span>{{ $menu['name'] }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             @foreach ($menu['child'] as $child)
-                                <li>
+                                <li class="{{ $current == $child['url'] ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route($child['url']) }}">{{ $child['name'] }}</a>
                                 </li>
                             @endforeach

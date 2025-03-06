@@ -1,24 +1,14 @@
 <?php
-if (!function_exists('activeGuard')) {
-  function activeGuard()
-  {
-    if (auth()->guard('user')->check()) {
-      return 'user';
-    }
-
-    return null;
-  }
-}
 
 if (!function_exists('accountLogin')) {
   function accountLogin()
   {
-    return auth(activeGuard())->user();
+    return auth()->user();
   }
 }
 
-if (!function_exists('accountIsRoot')) {
-  function accountIsRoot()
+if (!function_exists('userIsRoot')) {
+  function userIsRoot()
   {
     return accountLogin()->is_root == ROOT_USER;
   }

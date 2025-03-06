@@ -14,7 +14,7 @@ class BaseDataTable extends DataTable
   public function __construct($permission_name = null, $button_view = null)
   {
     $this->permission_name = $permission_name ?? '';
-    $this->button_view = $button_view ?? 'layouts.partials.datatable-button';
+    $this->button_view = $button_view ?? '';
   }
 
   public function setPermission($permission)

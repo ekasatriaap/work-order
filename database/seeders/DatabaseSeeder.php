@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $seeder = [
-            PeranSeeder::class,
+            RoleSeeder::class,
             UsersSeeder::class
         ];
 

@@ -7,7 +7,7 @@
             'label' => '<i class="fas fa-edit"></i>',
             'attr' =>
                 'onclick="actionModalData(this)" data-url="' .
-                route('cms.kategori.edit', $id) .
+                route('role.edit', $id) .
                 '" data-title="Edit Data Kategori"',
             'title' => 'Edit',
             'color' => 'warning',
@@ -19,9 +19,20 @@
     @php
         $listUrl[] = [
             'label' => '<i class="fas fa-trash"></i>',
-            'attr' => "onclick=\"deleteDataDataTable('" . route('cms.kategori.destroy', $id) . "') \"",
+            'attr' => "onclick=\"deleteDataDataTable('" . route('role.destroy', $id) . "') \"",
             'title' => 'Delete',
             'color' => 'danger',
+        ];
+    @endphp
+@endcan
+
+@can("{$permission_name}.detail")
+    @php
+        $listUrl[] = [
+            'label' => '<i class="fas fa-info-circle"></i>',
+            'url' => route("{$permission_name}.show", $id),
+            'title' => 'Detail',
+            'color' => 'primary',
         ];
     @endphp
 @endcan

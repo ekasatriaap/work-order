@@ -10,3 +10,5 @@ const GAGAL_LOGIN = 'Username atau password anda salah';
 const BERHASIL_LOGIN = 'Login Berhasil';
 
 const ROOT_USER = 1;
+
+const GUARD_WEB = "web";

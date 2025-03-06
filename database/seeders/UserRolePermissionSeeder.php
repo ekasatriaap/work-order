@@ -24,15 +24,12 @@ class UserRolePermissionSeeder extends Seeder
     public function run()
     {
 
-        $roles = Peran::get();
+        $roles = Role::get();
 
         $default_user_value = [
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
         ];
-
-        // get role
-        $get_roles = Role::whereIn('name', $roles->pluck("nama_peran")->toArray())->get();
         // get users
         $get_users = User::get();
         foreach ($roles as $role) {
@@ -42,11 +39,6 @@ class UserRolePermissionSeeder extends Seeder
                 'username' => strtolower(str_replace(' ', '_', $role->nama_peran)),
             ], $default_user_value);
 
-            // check roles exists
-            $role_exists = $get_roles->where("name", $role->nama_peran)->first();
-            if (empty($role_exists)) {
-                $role = Role::create(['name' => $role->nama_peran]);
-            }
             // check user exists
             $user_exists = $get_users->where("username", $user_data['username'])->first();
             if (empty($user_exists)) {

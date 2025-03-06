@@ -4,7 +4,7 @@
             <x-card :title="$title">
                 @slot('toolbar')
                     @can("$permission_name.tambah")
-                        <button type="button" class="btn btn-sm btn-primary" data-title="Tambah Data kategori"
+                        <button type="button" class="btn btn-sm btn-primary" data-title="Tambah Role"
                             data-url="{{ route("{$permission_name}.create") }}" onclick="actionModalData(this)">
                             <i class="fas fa-plus"></i> Tambah
                         </button>

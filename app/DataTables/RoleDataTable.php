@@ -3,13 +3,14 @@
 namespace App\DataTables;
 
 use App\Models\Peran;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 
-class PeranDataTable extends BaseDataTable
+class RoleDataTable extends BaseDataTable
 {
     /**
      * Build DataTable class.
@@ -19,11 +20,8 @@ class PeranDataTable extends BaseDataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        $primaryKey = (new Peran())->getKeyName();
+        $primaryKey = (new Role())->getKeyName();
         return (new EloquentDataTable($query))
-            ->editColumn('checkbox', function ($row) use ($primaryKey) {
-                return "<input type='checkbox' checkboxitem value='{$row->$primaryKey}'>";
-            })
             ->addColumn('aksi', function ($row) use ($primaryKey) {
                 $data['id'] = encode($row->$primaryKey);
                 $data['permission_name'] = $this->getPermission();
@@ -41,10 +39,11 @@ class PeranDataTable extends BaseDataTable
      * @param \App\Models\BebanStudi $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Peran $model): QueryBuilder
+    public function query(Role $model): QueryBuilder
     {
-
-        return $model->orderBy('level');
+        $param = $this->getParam();
+        return $model->when(!userIsRoot(), fn($query) => $query->where("level", ">", $param['level']))
+            ->orderBy('level');
     }
 
     /**
@@ -56,17 +55,11 @@ class PeranDataTable extends BaseDataTable
     {
         return $this->builder()
             ->searchDelay(1000)
-            ->setTableId(DATATABLE_ID) //biarkan
+            ->setTableId(DATATABLE_ID)
             ->columns($this->getColumns())
-            ->addCheckbox(['checkboxheader'], 1)
-            ->drawCallback(defaultDrawCallback())
             ->minifiedAjax()
-            ->dom('Bfrtilp')
-            ->orderBy(0)
-            ->buttons(
-                Button::make('reset')->action(""),
-                Button::make('reload')
-            );
+            ->dom('frtip')
+            ->orderBy(0);
     }
 
     /**
@@ -79,8 +72,8 @@ class PeranDataTable extends BaseDataTable
         return [
             Column::make('created_at')->hidden()->searchable(false),
             Column::make('DT_RowIndex')->name('id')->title('No')->searchable(false)->orderable(false)->width(50)->addClass('text-center'),
-            Column::make('nama_peran')->title('Role'),
-            Column::make('level'),
+            Column::make('name')->title('Role'),
+            Column::make('level')->addClass('text-center')->width(75),
             Column::computed('aksi')->title('')->exportable(false)->printable(false)->width(100)->addClass('text-end'),
 
         ];
@@ -93,6 +86,6 @@ class PeranDataTable extends BaseDataTable
      */
     protected function filename(): string
     {
-        return 'Sms_' . date('YmdHis');
+        return 'Role_' . date('YmdHis');
     }
 }

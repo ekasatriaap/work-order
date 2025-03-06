@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Peran;
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PeranSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,15 +15,15 @@ class PeranSeeder extends Seeder
     {
         collect([
             [
-                "nama_peran" => "Project Manager",
+                "name" => "Project Manager",
                 "level" => 1
             ],
             [
-                "nama_peran" => "Operator",
+                "name" => "Operator",
                 "level" => 2
             ]
         ])->each(function ($role) {
-            Peran::create($role);
+            Role::create($role);
         });
     }
 }
