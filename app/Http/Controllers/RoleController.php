@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\RoleDataTable;
 use App\Http\Requests\RoleRequest;
+use App\Models\Menu;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -114,5 +115,132 @@ class RoleController extends BaseController
         DB::commit();
         $this->activityDelete("Hapus {$this->log_name}", $role);
         return responseSuccess(BERHASIL_HAPUS);
+    }
+
+    public function permission(Request $request, $id)
+    {
+        notAjaxAbort();
+        $role = Role::findById($id);
+        $permissions = $request->input('permissions');
+        if (!$role || !$permissions) return responseFail(DATA_TIDAK_DITEMUKAN);
+
+        $give = [];
+        $revoke = [];
+        $role_permissions = $role->getAllPermissions()->pluck('name')->toArray();
+
+        foreach ($permissions as $key => $permission) {
+            $name = decode($permission['name']);
+            $is_checked = $permission['is_checked'];
+
+            if ($name) {
+                if (in_array($name, $role_permissions) && $is_checked == 0) {
+                    $revoke[] = $name;
+                } elseif (!in_array($name, $role_permissions) && $is_checked == 1) {
+                    $give[] = $name;
+                }
+            }
+        }
+
+        $message = [];
+
+
+        DB::beginTransaction();
+        try {
+
+            if (count($give) > 0) {
+                $role->givePermissionTo($give);
+                $message[] = count($give) . " hak akses berhasil ditambahkan..";
+            }
+            if (count($revoke) > 0) {
+                $role->revokePermissionTo($revoke);
+                $message[] = count($revoke) . " hak akses berhasil dicabut!";
+            }
+
+            $role_permissions = $role->getAllPermissions()->pluck('name')->toArray();
+
+            $menu = Menu::updateOrCreate(
+                [
+                    'id_role' => $role->id,
+                ],
+                [
+                    'id_role' => $role->id,
+                    'menu' => json_encode($this->_buildMenu($role_permissions)),
+                ]
+            );
+
+            $this->activityCreate("Manambah dan atau merubah hak akses " . $role->name, $menu);
+            DB::commit();
+
+            return responseSuccess((empty($message) ? 'tidak ada perubahan' : implode(', dan ', $message)));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return responseFail(TERJADI_KESALAHAN);
+        }
+    }
+
+    private function _buildMenu($permissions)
+    {
+
+        $menus = getMenu();
+        $list_menu_can = [];
+
+        foreach ($menus as $key => $menu) {
+
+            if (!$this->_bisaAksesMenu($permissions, $menu)) {
+                continue; //skip
+            }
+
+            if (!empty($menu['child'])) {
+
+                foreach ($menu['child'] as $kc => $child) {
+
+                    if (!$this->_bisaAksesMenu($permissions, $child)) {
+                        unset($menu['child'][$kc]); //unset
+                        continue; // skip
+                    }
+
+                    if (empty($child['url']) && !empty($child['child'])) {
+
+                        foreach ($child['child'] as $ksc => $sub_child) {
+                            if (empty($sub_child['url'])) {
+                                unset($menu['child'][$kc]['child'][$ksc]); //unset
+                                continue; //skip
+                            }
+
+                            if (!$this->_bisaAksesMenu($permissions, $sub_child)) {
+                                unset($menu['child'][$kc]['child'][$ksc]); //unset
+                                continue; //skip
+                            }
+
+                            unset($menu['child'][$kc]['child'][$ksc]['child']);
+                        }
+                    } else {
+
+                        if (empty($child['url'])) {
+                            unset($menu['child'][$kc]); //unset
+                            continue; //skip
+                        }
+                    }
+                }
+            } else {
+                if (empty($menu['url'])) continue;
+            }
+
+            $list_menu_can[] = $menu;
+        }
+
+        return $list_menu_can;
+    }
+
+    private function _bisaAksesMenu($permissions, $menu)
+    {
+        $permission_menu = getAllPermissionMenu($menu, [], 'lihat');
+
+        foreach ($permission_menu as $perrr) {
+            if (in_array($perrr, $permissions)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -43,6 +43,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # composer install
 RUN composer install
 
+COPY .env.example .env
+
 RUN php artisan key:generate
 
 RUN php artisan octane:install --server=frankenphp --force

@@ -66,7 +66,7 @@
     @push('add-styles')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     @endpush
-    @push('scripts')
+    @push('add-scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
         <script>
             const ALL_PERMISSIONS = [];
@@ -159,7 +159,7 @@
                     "'></span>";
                 if ($permission == 'tambah') return "<span class='fas fa-plus-circle " + ($checked ? 'text-primary' :
                     'text-secondary') + "'></span>";
-                if ($permission == 'ubah') return "<span class='fas fa-pencil " + ($checked ? 'text-warning' :
+                if ($permission == 'ubah') return "<span class='fas fa-edit " + ($checked ? 'text-warning' :
                     'text-secondary') + "'></span>";
                 if ($permission == 'hapus') return "<span class='fas fa-trash " + ($checked ? 'text-danger' :
                     'text-secondary') + "'></span>";
@@ -184,10 +184,17 @@
                         ajaxMaster("{{ route('role.permission', $role['id']) }}", "POST", sendData).then((
                             response) => {
                             if (response.success) {
-                                toastr.success(response.message, 'Sukses');
-
+                                iziToast.success({
+                                    title: "Sukses..",
+                                    message: response.message,
+                                    position: "topRight",
+                                })
                             } else {
-                                toastr.error(response.message, 'Gagal')
+                                iziToast.warning({
+                                    title: "Oops..",
+                                    message: response.message,
+                                    position: "topRight",
+                                })
                             }
                             ALL_PERMISSIONS.splice(0, ALL_PERMISSIONS.length);
                         }).catch((err) => {

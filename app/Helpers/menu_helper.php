@@ -12,12 +12,12 @@ if (!function_exists('getMenu')) {
           [
             "name" => "Users",
             "url" => "users.index",
-            "permissions" => ["users.lihat", "users.tambah", "users.edit", "users.hapus", "users.detail"]
+            "permissions" => ["users.lihat", "users.tambah", "users.ubah", "users.hapus", "users.detail"]
           ],
           [
             "name" => "Roles",
             "url" => "role.index",
-            "permissions" => ["role.lihat", "role.tambah", "role.edit", "role.hapus", "role.detail"]
+            "permissions" => ["role.lihat", "role.tambah", "role.ubah", "role.hapus", "role.detail"]
           ]
         ]
       ]
@@ -125,9 +125,6 @@ if (!function_exists('getAllMenuUrl')) {
 if (!function_exists('setupPermissionMenu')) {
   function setupPermissionMenu($menu, $role_permissions, $tab = 1)
   {
-
-    if (isset($menu['ignore_di_pengaturan'])) return;
-
     $defaultJsTree = '{ "type" : "file" }';
     $openJsTree = '{"opened": true}';
     $HTML = "<ul>";
