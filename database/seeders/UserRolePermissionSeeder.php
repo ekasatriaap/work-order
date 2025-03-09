@@ -33,10 +33,10 @@ class UserRolePermissionSeeder extends Seeder
         // get users
         $get_users = User::get();
         foreach ($roles as $role) {
-
             $user_data = array_merge([
                 'name' => 'Akun ' . $role->name,
                 'username' => strtolower(str_replace(' ', '_', $role->name)),
+                "id_role" => $role->id
             ], $default_user_value);
 
             // check user exists
