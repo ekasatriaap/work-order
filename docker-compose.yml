@@ -6,7 +6,7 @@ services:
         container_name: work-order-app
         env_file: .env
         ports:
-            - "8080:80"
+            - "8080:8000"
         volumes:
             - ./:/app
             - vendor:/app/vendor
