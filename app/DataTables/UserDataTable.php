@@ -33,7 +33,7 @@ class UserDataTable extends BaseDataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\BebanStudi $model
+     * @param \App\Models\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(User $model): QueryBuilder

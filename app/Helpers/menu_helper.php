@@ -20,58 +20,50 @@ if (!function_exists('getMenu')) {
             "permissions" => ["role.lihat", "role.tambah", "role.ubah", "role.hapus", "role.detail"]
           ]
         ]
+      ],
+      [
+        "name" => "Master",
+        "icon" => "fas fa-database",
+        "child" => [
+          [
+            "name" => "Produk",
+            "url" => "produk.index",
+            "permissions" => ["produk.lihat", "produk.tambah", "produk.ubah", "produk.hapus"]
+          ]
+        ]
+      ],
+      [
+        "name" => "Work Order",
+        "icon" => "fas fa-list",
+        "child" => [
+          [
+            "name" => "Penugasan",
+            "url" => "penugasan.index",
+            "permissions" => ["penugasan.lihat", "penugasan.tambah", "penugasan.ubah", "penugasan.hapus", "penugasan.detail"]
+          ],
+          [
+            "name" => "Tugas",
+            "url" => "tugas.index",
+            "permissions" => ["tugas.lihat", "tugas.ubah", "tugas.detail"]
+          ],
+        ]
+      ],
+      [
+        "name" => "Laporan",
+        "icon" => "fas fa-file",
+        "child" => [
+          [
+            "name" => "Work Order",
+            "url" => "laporan-work-order.index",
+            "permissions" => ["laporan-work-order.lihat"]
+          ],
+          [
+            "name" => "Petugas",
+            "url" => "laporan-petugas.index",
+            "permissions" => ["laporan-petugas.lihat"]
+          ]
+        ]
       ]
-      // [
-      //   "name" => "Master",
-      //   "icon" => "fas fa-database",
-      //   "child" => [
-      //     [
-      //       "name" => "Kategori",
-      //       "url" => "cms.kategori.index",
-      //     ],
-      //     [
-      //       "name" => "Users",
-      //       "url" => "cms.users.index"
-      //     ]
-      //   ]
-      // ],
-      // [
-      //   "name" => "Berita",
-      //   "url" => "cms.news.index",
-      //   "icon" => "fas fa-newspaper",
-      // ],
-      // [
-      //   "name" => "Pages",
-      //   "url" => "cms.pages.index",
-      //   "icon" => "fas fa-file-alt",
-      // ],
-      // [
-      //   "name" => "Portofolio",
-      //   "url" => "cms.portofolio.index",
-      //   "icon" => "fas fa-images",
-      // ],
-      // [
-      //   "name" => "Setting",
-      //   "icon" => "fas fa-cog",
-      //   "child" => [
-      //     [
-      //       "name" => "Sliders",
-      //       "url" => "cms.slider.index",
-      //     ],
-      //     [
-      //       "name" => "Web Setting",
-      //       "url" => "cms.web_setting.edit",
-      //     ],
-      //     [
-      //       "name" => "Beranda Web",
-      //       "url" => "cms.setting_beranda_web.edit",
-      //     ],
-      //     [
-      //       "name" => "Menu",
-      //       "url" => "cms.menu.index",
-      //     ]
-      //   ]
-      // ]
     ];
     return $menu;
   }

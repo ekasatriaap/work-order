@@ -53,4 +53,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Role::class, "id", "id_role");
     }
+
+    public static function usersRole()
+    {
+        $is_root = auth()->user()->is_root;
+        $level = auth()->user()->role?->level ?? 0;
+        return User::selectRaw("users.*, CONCAT(users.name, ' .::. ', roles.name) AS user_role")
+            ->join("roles", "roles.id", "=", "users.id_role")
+            ->when(!$is_root, fn($query) => $query->where("roles.level", ">", $level))
+            ->get();
+    }
 }

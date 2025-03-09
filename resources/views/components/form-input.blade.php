@@ -2,7 +2,7 @@
     @if ($label)
         <x-form-label :label="$label" :for="$id ?? ''" />
     @endif
-    <input {!! $attributes->merge(['class' => 'form-control' . ($errors->has($errorKey) ? ' is-invalid' : '')]) !!} name="{{ $name }}">
+    <input {!! $attributes->merge(['class' => 'form-control' . ($errors->has($errorKey) ? ' is-invalid' : '')]) !!} name="{{ $name }}" @if ($attributes->has('readonly') && $attributes->get('readonly') == true) readonly @endif>
     @error($errorKey)
         <x-input-error :messages="$errors->get($errorKey)" class="mt-2" />
     @enderror

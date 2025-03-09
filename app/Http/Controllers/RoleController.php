@@ -50,12 +50,12 @@ class RoleController extends BaseController
             $store = Role::create($attributes);
         } catch (\Exception $e) {
             DB::rollBack();
-            $message = env("APP_DEBUG") ? $e->getMessage() : GAGAL_SIMPAN;
+            $message = env("APP_DEBUG") ? $e->getMessage() : GAGAL_HAPUS;
             return responseFail($message);
         }
         DB::commit();
         $this->activityCreate("Tambah {$this->log_name}", $store);
-        return responseSuccess(BERHASIL_SIMPAN);
+        return responseSuccess(BERHASIL_HAPUS);
     }
 
     public function edit($id)
@@ -89,7 +89,7 @@ class RoleController extends BaseController
 
     public function show($id)
     {
-        $role = Role::findOrFail(decode($id));
+        $role = Role::findOrFail($id);
 
         $data = [
             'title' => 'Detail Role',
@@ -110,7 +110,7 @@ class RoleController extends BaseController
             $role->delete();
         } catch (\Exception $e) {
             DB::rollBack();
-            $message = env("APP_DEBUG") ? $e->getMessage() : GAGAL_SIMPAN;
+            $message = env("APP_DEBUG") ? $e->getMessage() : GAGAL_HAPUS;
             return responseFail($message);
         }
         DB::commit();

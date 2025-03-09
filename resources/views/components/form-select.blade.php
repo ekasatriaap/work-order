@@ -2,7 +2,7 @@
     @if ($attributes->has('label'))
         <x-form-label label :for="$id" :label="$label"></x-form-label>
     @endif
-    <select {!! $attributes->merge(['class' => 'form-control selectric' . ($errors->has($name) ? ' is-invalid' : '')]) !!}>
+    <select {!! $attributes->merge(['class' => 'form-control selectric' . ($errors->has($name) ? ' is-invalid' : '')]) !!} @if ($attributes->has('disabled') && $attributes->get('disabled') == true) disabled @endif>
         @if ($attributes->has('placeholder'))
             <option value="">{{ $placeholder }}</option>
         @endif

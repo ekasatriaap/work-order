@@ -108,11 +108,11 @@ class UserController extends BaseController
             $user->delete();
         } catch (\Exception $e) {
             DB::rollBack();
-            $message = env("APP_DEBUG") ? $e->getMessage() : GAGAL_SIMPAN;
+            $message = env("APP_DEBUG") ? $e->getMessage() : GAGAL_HAPUS;
             return responseFail($message);
         }
         DB::commit();
         $this->activityDelete("Hapus {$this->log_name}", $user);
-        return responseSuccess(BERHASIL_SIMPAN);
+        return responseSuccess(BERHASIL_HAPUS);
     }
 }

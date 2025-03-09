@@ -30,7 +30,7 @@
     @php
         $listUrl[] = [
             'label' => '<i class="fas fa-info-circle"></i>',
-            'url' => route("{$permission_name}.show", $id),
+            'url' => route("{$permission_name}.show", decode($id)),
             'title' => 'Detail',
             'color' => 'primary',
         ];

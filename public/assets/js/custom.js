@@ -517,3 +517,55 @@ const deleteDataReloadPage = (url, sendData = {}, typeDelete = "soft") => {
       });
   });
 };
+
+const setFilterDataTable = ($element, $table) => {
+  for (let index = 0; index < $element.length; index++) {
+    const element = $($element[index]);
+
+    //jika element tidak ada skip
+    if (element.length == 0) {
+      continue;
+    }
+
+    const tagName = element[0].tagName.toLowerCase();
+
+    if (tagName == "input") {
+      const type = element.attr("type");
+      if (type == "text" || type == "tel" || type == "numeric") {
+        // console.log("inputan");
+        element.on("keyup", () =>
+          customSearchDataTable($table, $element)
+        );
+      } else {
+        element.on("change", () =>
+          customSearchDataTable($table, $element)
+        );
+      }
+    } else if (tagName == "select") {
+      element.on("change", () => customSearchDataTable($table, $element));
+    }
+  }
+
+  let tableSrip = $table.replace(/#|\]|\[|\./g, ""); //replace #.[]
+  $(`.buttons-reset[aria-controls="${tableSrip}"]`).on("click", () =>
+    customResetDataTable($table, $element)
+  );
+};
+
+const customSearchDataTable = ($table, $element) => {
+  $($table).on("preXhr.dt", function (e, settings, data) {
+    for (let index = 0; index < $element.length; index++) {
+      const element = $($element[index]);
+      data[element.attr("name")] = element.val();
+    }
+  });
+
+  $($table).DataTable().ajax.reload();
+};
+
+const customResetDataTable = ($table, $element) => {
+  for (let index = 0; index < $element.length; index++) {
+    $($element[index]).val("").trigger("change.select2");
+  }
+  customSearchDataTable($table, $element);
+};

@@ -9,22 +9,17 @@
                 @endslot
                 <div id="msg"></div>
                 <div id="path"></div>
-                <ul class="nav nav-pills nav-pills-custom mb-3 mt-5">
+                <ul class="nav nav-pills mb-3 mt-5">
                     @php
                         $tab = 1;
                     @endphp
                     @foreach ($menuUsers as $key => $menu)
-                        <li class="nav-item mb-3 me-3 me-lg-6">
-                            <a class=" @if ($tab == 1) active @endif nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden h-70px w-100px pt-3 pb-1"
-                                id="kt_stats_widget_16_tab_link_{{ $tab }}" data-bs-toggle="pill"
+                        <li class="nav-item">
+                            <a class=" @if ($tab == 1) active @endif nav-link"
+                                id="kt_stats_widget_16_tab_link_{{ $tab }}" data-toggle="pill"
                                 href="#kt_vtab_pane_{{ $tab }}">
-                                <div class="nav-icon mb-3">
-                                    <span class="menu-icon">
-                                        <i class="{{ $menu['icon'] }}"></i>
-                                    </span>
-                                </div>
-                                <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">{{ $menu['name'] }}</span>
-                                <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                                <i class="{{ $menu['icon'] }}"></i>
+                                {{ $menu['name'] }}
                             </a>
                         </li>
                         @php
@@ -47,8 +42,8 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <table
-                                        class="display-permission-{{ $tab }} table table-row-dashed fs-6 gy-2">
+                                    <table class="display-permission-{{ $tab }}" cellspacing="0"
+                                        cellpadding="0" width="50%">
                                     </table>
                                 </div>
                             </div>

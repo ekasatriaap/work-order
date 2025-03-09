@@ -14,3 +14,15 @@ const TERJADI_KESALAHAN = "Terjadi Kesalahan";
 const ROOT_USER = 1;
 
 const GUARD_WEB = "web";
+
+const TASK_STATUS = [
+  "pending" => "Pending",
+  "in_progress" => "In Progress",
+  "completed" => "Completed",
+  "canceled" => "Canceled"
+];
+
+const TASK_STATUS_COMPLETED = 'completed';
+const TASK_STATUS_CANCELED = 'canceled';
+const TASK_STATUS_PENDING = 'pending';
+const TASK_STATUS_IN_PROGRESS = 'in_progress';
