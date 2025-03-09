@@ -1,66 +1,159 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aplikasi Pembuatan Work Order dengan Fitur RBAC
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi ini adalah sistem manajemen Work Order yang memungkinkan pengguna untuk membuat, mengelola, dan memantau status Work Order. Aplikasi ini dilengkapi dengan fitur **Role-Based Access Control (RBAC)**, yang memungkinkan pembagian akses berdasarkan peran pengguna.
 
-## About Laravel
+## Teknologi yang Digunakan
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   **Backend**: Laravel 11
+-   **Frontend**: Bootstrap 4, jQuery
+-   **Database**: MySQL
+-   **Template**: Stisla
+-   **Autentikasi**: Laravel Breeze untuk autentikasi pengguna
+-   **RBAC**: Spatie Laravel Permission untuk pengelolaan hak akses berdasarkan peran
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Autentikasi Pengguna**: Pengguna dapat mendaftar, login, dan logout.
+-   **Manajemen Work Order**: Pengguna dapat membuat, mengedit, dan menghapus Work Order.
+-   **Role-Based Access Control (RBAC)**: Pengguna dengan peran tertentu (misalnya Admin, Supervisor, User) memiliki akses yang berbeda.
+-   **Pengelolaan Pengguna**: Admin dapat menambah, mengedit, dan menghapus pengguna serta menetapkan peran.
 
-## Learning Laravel
+## Persyaratan Sistem
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak berikut:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   **PHP** >= 8.1
+-   **Composer**
+-   **MySQL**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalasi
 
-## Laravel Sponsors
+-   **Clone repository**:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    Sebelum melakukan instalasi, clone project terlebih dahulu
 
-### Premium Partners
+    ```bash
+    git clone https://github.com/ekasatriaap/work-order.git
+    cd work-order
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Pilih Metode Instalasi
 
-## Contributing
+<details>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<summary>Instalasi Menggunakan Docker</summary>
 
-## Code of Conduct
+1. **Pastikan Docker dan Docker Compose terinstal**:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    Sebelum melanjutkan, pastikan Docker dan Docker Compose telah terinstal pada sistem Anda. Jika belum, ikuti instruksi [di sini](https://docs.docker.com/get-docker/) untuk menginstalnya.
 
-## Security Vulnerabilities
+2. **Membangun container Docker**:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    Jalankan perintah berikut untuk membangun aplikasi menggunakan Docker Compose:
 
-## License
+    ```bash
+    docker compose create
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Perintah ini akan membangun image Docker, dan mengatur database.
+
+3. **Menjalankan container Docker**:
+
+    Jalankan perintah berikut untuk menjalankan aplikasi menggunakan Docker Compose:
+
+    ```bash
+    docker compose start
+    ```
+
+    Perintah ini akan menjalankan aplikasi dalam container.
+
+4. **Membuat database**:
+
+    Koneksikan database client dengan database dengan username root dan password root. Buat database dengan nama work-order di dalam container.
+
+5. **Migrasi data**:
+
+    Anda bisa menggunakan data yang sudah di sediakan di /public/database.sql, atau menjalankan perintah migrasi dan seeder.
+
+    ```bash
+    docker exec work-order-app php artisan migrate --seed
+    ```
+
+6. **Jalankan aplikasi**:
+
+    Setelah proses selesai, Anda dapat mengakses aplikasi di `http://localhost:8080`.
+
+</details>
+
+<detail>
+<summary>Instalasi Konvensional</summary>
+
+1. **Instal dependensi backend**:
+
+    Pastikan Anda sudah menginstal Composer. Kemudian jalankan perintah berikut untuk menginstal dependensi Laravel:
+
+    ```bash
+    composer install
+    ```
+
+2. **Konfigurasi file environment**:
+
+    Salin file `.env.example` menjadi `.env`:
+
+    ```bash
+    cp .env.example .env
+    ```
+
+3. **Generate aplikasi key**:
+
+    Jalankan perintah berikut untuk menghasilkan aplikasi key:
+
+    ```bash
+    php artisan key:generate
+    ```
+
+4. **Membuat database**:
+
+    Buat database dengan nama work-order.
+
+5. **Migrasi data**:
+
+    Anda bisa menggunakan data yang sudah di sediakan di /public/database.sql, atau menjalankan perintah migrasi dan seeder.
+
+    ```bash
+    docker exec work-order-app php artisan migrate --seed
+    ```
+
+6. **Jalankan aplikasi**:
+
+    Sekarang Anda dapat menjalankan aplikasi menggunakan perintah berikut:
+
+    ```bash
+    php artisan serve
+    ```
+
+    Aplikasi akan tersedia di `http://localhost:8000`.
+
+</details>
+
+## Users Default
+
+Setelah instalasi selesai, pengguna default sudah disediakan di dalam **Seeder** aplikasi ini.
+
+-   **Pengguna Default yang Ditambahkan**:
+
+    Seeder sudah menambahkan tiga pengguna default dengan peran berikut:
+
+    -   **Username**: `root`  
+        **Password**: `root`  
+        **Role**: `Root` (Admin penuh)
+    -   **Username**: `project_manager`  
+        **Password**: `password`  
+        **Role**: `Project Manager`
+    -   **Username**: `Operator`  
+        **Password**: `password`  
+        **Role**: `Operator`
+
+### Menggunakan Seeder
+
+Jika Anda ingin menambahkan lebih banyak pengguna atau melakukan perubahan pada data pengguna default, Anda dapat memodifikasi file `database/seeders/UserSeeder.php` sesuai kebutuhan. Setelah itu, jalankan kembali perintah `php artisan db:seed` untuk menambahkan data baru.
