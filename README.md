@@ -80,7 +80,7 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak
     Jalankan perintah berikut untuk menghasilkan aplikasi key:
 
     ```bash
-    php artisan key:generate
+    docker exec work-order-app php artisan key:generate
     ```
 
 5. **Membuat database**:
@@ -95,7 +95,15 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak
     docker exec work-order-app php artisan migrate --seed
     ```
 
-7. **Jalankan aplikasi**:
+7. **Jalankan ulang container**:
+
+    Jalankan ulang container untuk merefresh file .env di container.
+
+    ```bash
+    docker compose restart
+    ```
+
+8. **Jalankan aplikasi**:
 
     Setelah proses selesai, Anda dapat mengakses aplikasi di `http://localhost:8080`.
 
