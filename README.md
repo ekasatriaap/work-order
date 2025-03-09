@@ -75,11 +75,19 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak
 
     Perintah ini akan menjalankan aplikasi dalam container.
 
-4. **Membuat database**:
+4. **Generate aplikasi key**:
+
+    Jalankan perintah berikut untuk menghasilkan aplikasi key:
+
+    ```bash
+    php artisan key:generate
+    ```
+
+5. **Membuat database**:
 
     Koneksikan database client dengan database dengan username root dan password root. Buat database dengan nama work-order di dalam container.
 
-5. **Migrasi data**:
+6. **Migrasi data**:
 
     Anda bisa menggunakan data yang sudah di sediakan di /public/database.sql, atau menjalankan perintah migrasi dan seeder.
 
@@ -87,7 +95,7 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak
     docker exec work-order-app php artisan migrate --seed
     ```
 
-6. **Jalankan aplikasi**:
+7. **Jalankan aplikasi**:
 
     Setelah proses selesai, Anda dapat mengakses aplikasi di `http://localhost:8080`.
 
