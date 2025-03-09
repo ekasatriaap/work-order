@@ -4,12 +4,12 @@ services:
             context: .
             dockerfile: Dockerfile
         container_name: work-order-app
-        # env_file: .env
         ports:
             - "8080:80"
         volumes:
             - ./:/app
-        # command: bash -c "php artisan octane:frankenphp"
+            - vendor:/app/vendor
+        command: bash -c "php artisan octane:frankenphp"
         networks:
             - work-order-network
 
@@ -27,6 +27,7 @@ services:
 
 volumes:
     mariadb-data:
+    vendor:
 
 networks:
     work-order-network:
