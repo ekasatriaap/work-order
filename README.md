@@ -28,13 +28,21 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak
 
 ## Instalasi
 
--   **Clone repository**:
+1. **Clone repository**:
 
     Sebelum melakukan instalasi, clone project terlebih dahulu
 
     ```bash
     git clone https://github.com/ekasatriaap/work-order.git
     cd work-order
+    ```
+
+2. **Konfigurasi file environment**:
+
+    Salin file `.env.example` menjadi `.env`:
+
+    ```bash
+    cp .env.example .env
     ```
 
 ### Pilih Metode Instalasi
@@ -96,15 +104,7 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak
     composer install
     ```
 
-2. **Konfigurasi file environment**:
-
-    Salin file `.env.example` menjadi `.env`:
-
-    ```bash
-    cp .env.example .env
-    ```
-
-3. **Generate aplikasi key**:
+2. **Generate aplikasi key**:
 
     Jalankan perintah berikut untuk menghasilkan aplikasi key:
 
@@ -112,19 +112,19 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal perangkat lunak
     php artisan key:generate
     ```
 
-4. **Membuat database**:
+3. **Membuat database**:
 
     Buat database dengan nama work-order.
 
-5. **Migrasi data**:
+4. **Migrasi data**:
 
     Anda bisa menggunakan data yang sudah di sediakan di /public/database.sql, atau menjalankan perintah migrasi dan seeder.
 
     ```bash
-    docker exec work-order-app php artisan migrate --seed
+    php artisan migrate --seed
     ```
 
-6. **Jalankan aplikasi**:
+5. **Jalankan aplikasi**:
 
     Sekarang Anda dapat menjalankan aplikasi menggunakan perintah berikut:
 
