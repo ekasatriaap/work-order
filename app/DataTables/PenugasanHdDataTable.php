@@ -50,7 +50,7 @@ class PenugasanHdDataTable extends BaseDataTable
         return $model->with(["pemberi_tugas", "penerima_tugas"])
             ->when($fstatus, fn($query) => $query->where("status", $fstatus))
             ->when($ftanggal, fn($query) => $query->whereDate("created_at", $ftanggal))
-            ->when(!$is_root, fn($query) => $query->where("id", $id));
+            ->when(!$is_root, fn($query) => $query->where("id_pemberi_tugas", $id));
     }
 
     /**

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class TugasDetailController extends BaseController
 {
     protected $view = "app.tugas-detail";
-    protected $permission_name = "tugas";
+    protected $permission_name = "tugas-detail";
     protected $log_name = "Tugas Detail";
 
     public function edit($id)

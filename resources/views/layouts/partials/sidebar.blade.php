@@ -31,9 +31,11 @@
                         </a>
                         <ul class="dropdown-menu">
                             @foreach ($menu['child'] as $child)
-                                <li class="{{ $current == $child['url'] ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{ route($child['url']) }}">{{ $child['name'] }}</a>
-                                </li>
+                                @if (isset($child['url']))
+                                    <li class="{{ $current == $child['url'] ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route($child['url']) }}">{{ $child['name'] }}</a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </li>

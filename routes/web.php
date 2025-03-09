@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('penugasan-detail', PenugasanDetailController::class)->except(['index']);
 
     Route::resource("tugas", TugasController::class)->only(["index", "edit", "update", "show"]);
-    Route::resource("tugas-detail", TugasController::class)->only(["edit", "update", "show"]);
+    Route::resource("tugas-detail", TugasDetailController::class)->only(["edit", "update", "show"]);
 
     Route::prefix("laporan/work-order")->controller(LaporanWorkOrderController::class)->group(function () {
         Route::get("/", "index")->name("laporan-work-order.index");

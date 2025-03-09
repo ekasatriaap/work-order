@@ -42,9 +42,17 @@ if (!function_exists('getMenu')) {
             "permissions" => ["penugasan.lihat", "penugasan.tambah", "penugasan.ubah", "penugasan.hapus", "penugasan.detail"]
           ],
           [
+            "name" => "Penugasan Detail",
+            "permissions" => ["penugasan-detail.lihat", "penugasan-detail.tambah", "penugasan-detail.ubah", "penugasan-detail.hapus", "penugasan-detail.detail"]
+          ],
+          [
             "name" => "Tugas",
             "url" => "tugas.index",
             "permissions" => ["tugas.lihat", "tugas.ubah", "tugas.detail"]
+          ],
+          [
+            "name" => "Tugas",
+            "permissions" => ["tugas-detail.lihat", "tugas-detail.ubah", "tugas-detail.detail"]
           ],
         ]
       ],
