@@ -10,7 +10,7 @@
             <a href="{{ route('dashboard') }}">WO</a>
         </div>
         <ul class="sidebar-menu">
-            <li>
+            <li class="{{ $current == 'dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>

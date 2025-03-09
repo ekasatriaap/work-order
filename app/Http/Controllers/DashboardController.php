@@ -12,8 +12,9 @@ class DashboardController extends Controller
     public function index()
     {
         $id_user = auth()->user()->id;
-        $tugas = TaskHd::where("id_penerima_tugas", $id_user)->get();
-        $penugasan = TaskHd::where("id_pemberi_tugas", $id_user)->get();
+        $is_root = auth()->user()->is_root;
+        $tugas = TaskHd::when(!$is_root, fn($q) => $q->where("id_penerima_tugas", $id_user))->get();
+        $penugasan = TaskHd::when(!$is_root, fn($q) => $q->where("id_pemberi_tugas", $id_user))->get();
         $data = [
             "title" => "Dashboard",
             "tugas_pending" => $tugas->where("status", TASK_STATUS_PENDING)->count(),
